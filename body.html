@@ -42,8 +42,8 @@
 <template name="constantInterface">
 	{{#if show}}
 		Brightness: 
-		<input type="range" name="points" min="0" max="255"></input>
-		<input type="number" min="0" max="255" maxlength="3" style="width:50px"></input>
+		<input type="range" name="points" min="0" max="255" id="const_control0" onchange="document.getElementById('const_control1').value=document.getElementById('const_control0').value;"></input>
+		<input type="number" min="0" max="255" maxlength="3" style="width:50px" id="const_control1" value="" onchange="console.log('hey'); document.getElementById('const_control0').value=document.getElementById('const_control1').value;"></input>
 		<br>
 		<input type="button" class="btn btn-success" value="Go"></input>
 	{{/if}}
@@ -51,8 +51,8 @@
 <template name="intervalInterface">
 	{{#if show}}
 		Time: 
-		<input type="number" min="0" max="255" maxlength="3" style="width:50px"></input> minutes
+		<input type="number" min="0" max="255" maxlength="3" style="width:50px" id="interval_control0"></input> seconds
 		<br>
-		<input type="button" class="btn btn-success" value="Go"></input>
+		<input type="button" class="btn btn-success" value="Go" id="intervalGoBtn"></input>
 	{{/if}}
 </template>
