@@ -41,20 +41,30 @@ while (True):
 
     comChar = command[0]
 
+    temp = datetime.datetime.now().utctimetuple()
     curTime = calendar.timegm(datetime.datetime.now().utctimetuple())
+    curTime += datetime.datetime.now().microsecond/1e6 # sub-second precision
+
+    arduinoCommand = ""
 
     if (comChar == 's'):
             brightness = computeBrightness(0,curTime,86400)
+            arduinoCommand = "b"+str(brightness)            
     elif (comChar == 'i'):
             duration = int(command[1:])
             brightness = computeBrightness(0,curTime,duration)
+            arduinoCommand = "b"+str(brightness)
     elif (comChar == 'c'):
             level = int(command[1:])
             brightness = level
+            arduinoCommand = "b"+str(brightness)
+    elif (comChar == 'm'):
+            time.sleep(0.7)
+            arduinoCommand = "i"
     else:
         print("COULD NOT IDENTIFY")    
     
 
-    ser.write("b"+str(brightness)+",")
-    print brightness
+    print(arduinoCommand)
+    ser.write(arduinoCommand + ",")
     time.sleep(0.3)
