@@ -55,6 +55,6 @@ while (True):
         print("COULD NOT IDENTIFY")    
     
 
-    ser.write(b+brightness)
+    ser.write("b"+brightness+",")
     print brightness
     time.sleep(1)
