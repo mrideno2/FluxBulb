@@ -9,6 +9,8 @@ if (Meteor.isClient) {
   Template.navlist.events({
   	'click #standard': function() {
   		Session.set("controlType", "standard");
+      restGet("setType/standard")
+      $("#rdS").prop("checked", true)
   	},
   	'click #interval': function() {
   		Session.set("controlType", "interval");
@@ -21,33 +23,22 @@ if (Meteor.isClient) {
   Template.constantInterface.events({
   	'click .btn': function() {
   		var val = $("#const_control0").val()
-  		console.log(val)
-  		console.log(REST_URL + "setConstant/" + val)
-  		console.log(REST_URL + "setType/" + "constant")
-  		var xhr = createCORSRequest('GET', REST_URL + "setConstant/" + val);
-  		xhr.onload = function() {
-		 var responseText = xhr.responseText;
- 			console.log(responseText);
- 			// process the response.
-			};
-			xhr.onerror = function() {
-  console.log('There was an error!');
-};
-		xhr.send();
-
-
-  		    // xhr = createCORSRequest('GET', REST_URL + "setType/" + "constant");
-		if (!xhr) {
-		  throw new Error('CORS not supported');
-		}
-  		console.log("requesting")
-
+      restGet("setConstant/" + val);
+      restGet("setType/constant");
+      $("#rdC").prop("checked", true)
   	}
   })
 
   Template.intervalInterface.events({
   	'click .btn': function() {
-  		console.log("interval set" + $("#interval_control0").val());
+      var val = $("#interval_control0").val()
+      if (val == "") return
+      restGet("setInterval/" + val)
+      restGet("setType/interval")
+      // $("[type='radio']").removeClass("emboldened")
+      $("#rdI").prop("checked", true)
+      // $("#rdI > div").addClass("emboldened")
+
   	}
   })
 
@@ -63,55 +54,16 @@ if (Meteor.isServer) {
 
 
 
+function restGet(method) {
+  var url = REST_URL + method
 
+  console.log(url)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function createCORSRequest(method, url) {
-  var xhr = new XMLHttpRequest();
-  if ("withCredentials" in xhr) {
-
-    // Check if the XMLHttpRequest object has a "withCredentials" property.
-    // "withCredentials" only exists on XMLHTTPRequest2 objects.
-    xhr.open(method, url, true);
-
-  } else if (typeof XDomainRequest != "undefined") {
-
-    // Otherwise, check if XDomainRequest.
-    // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-    xhr = new XDomainRequest();
-    xhr.open(method, url);
-
-  } else {
-
-    // Otherwise, CORS is not supported by the browser.
-    console.log("this is bad");
-    xhr = null;
-
-  }
-  return xhr;
+  $.ajax(url, {
+        type:"GET",
+        dataType:"jsonp",
+        data:{action:"something"}, 
+        success:function(data, textStatus, jqXHR) {console.log("success");},
+        error: function(jqXHR, textStatus, errorThrown) {console.log("failure");}
+  });
 }

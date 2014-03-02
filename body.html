@@ -1,4 +1,5 @@
 <template name="body">
+	<input type="button" id="yeah" value=test></input>
 	<div class="row">
 		<div class="span3">
 			{{> navlist}}
@@ -23,9 +24,9 @@
 	<!-- <span class="input-group"> -->
 	<ul class="nav nav-list">
 	    <li class="nav-header">Flux-type</li>
-		<li><a href="#" id="standard"><input type="radio" name="type">Standard</input></a></li>
-		<li><a href="#" id="interval"><input type="radio" name="type">Time interval</input></a></li>
-		<li><a href="#" id="constant"><input type="radio" name="type">Constant</input></a></li>
+		<li><a href="#" id="standard"><input type="radio" name="type" id="rdS"><span>Standard</span></input></a></li>
+		<li><a href="#" id="interval"><input type="radio" name="type" id="rdI">Time interval</input></a></li>
+		<li><a href="#" id="constant"><input type="radio" name="type" id="rdC"><span>Constant</span></input></a></li>
 	    <li class="nav-header">other</li>
 		<li><a href="#" id="logout">Log out</a>
 	</ul>
