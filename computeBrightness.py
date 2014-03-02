@@ -1,6 +1,9 @@
-# param     initialTime     A time
-# param     curTime         A time
-# param     cycleTime       The duration of a full cycle (000 -> 255 -> 001)
+# NOTE, for whatever reason, use curTime = calendar.timegm(datetime.datetime.now().utctimetuple()).
+
+
+# param     initialTime     A unix timestamp
+# param     curTime         A unix timestamp
+# param     cycleTime       The duration of a full cycle (000 -> 255 -> 001) in seconds
 # throws exception if (curTime < initialTime)
 # returns   brightness 		A brightness level from 0-255
 import math
@@ -10,26 +13,39 @@ def computeBrightness(initialTime, curTime, cycleTime):
 	if curTime<initialTime:
 		raise Exception("Value Error")
 	else:
-		brightness = (2*math.pi)
-		#print brightness
-		brightness = brightness/cycleTime
-		#print brightness
-		brightness = brightness * (curTime-initialTime)
-		#print brightness
-		brightness = math.sin(brightness*0.5)
-		#print brightness
-		brightness = (255.0/2)*brightness
-		#print brightness
-		brightness = brightness+(255.0/2)
-		#brightness = int((255/2)*math.sin((2*math.pi)/cycleTime*(curTime-initialTime))+(255/2))
+		curTime -= 5*60*60 #adjust for timezone, so that brightness peaks at noon (local time)
+		curTime = curTime % cycleTime	# no need to compute with super large numbers
+		
+		brightness = 2*math.pi
 
-	#print brightness
-	return brightness
+		brightness = brightness / cycleTime
+		
+		brightness = brightness * curTime
 
+		brightness = math.sin(brightness)
 
+		brightness = brightness + 1
 
+		brightness = brightness * 255/2
+
+		return brightness
+
+# import time
+# import datetime
+# import calendar
+
+# initialTime = 0
+# # curTime = int(time.time()) # avoid?
+# curTime = calendar.timegm(datetime.datetime.now().utctimetuple())
+# cycleTime = 24*60*60
+
+# --- use this block to compute FUTURE timestamps for testing purposes ---
+# future = datetime.datetime.now() + datetime.timedelta(hours = 0)
+# curTime = calendar.timegm(future.utctimetuple())
+
+# --- use this block to accept test data from stdin ---
 #initialTime = input("Enter the initial time: ")
 #curTime = input("Enter the current time: ")
 #cycleTime = input("Enter the cycle range: ")
 
-#computeBrightness(initialTime,curTime,cycleTime)
+# print(computeBrightness(initialTime,curTime,cycleTime))
