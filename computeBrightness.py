@@ -30,9 +30,9 @@ def computeBrightness(initialTime, curTime, cycleTime):
 
 		return brightness
 
-# import time
-# import datetime
-# import calendar
+import time
+import datetime
+import calendar
 
 # initialTime = 0
 # # curTime = int(time.time()) # avoid?
