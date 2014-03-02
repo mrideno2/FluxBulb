@@ -27,6 +27,9 @@ def computeBrightness(initialTime, curTime, cycleTime):
 		brightness = brightness + 1
 
 		brightness = brightness * 255/2
+		brightness = int(brightness)
+	        brightness = str(brightness)
+	        brightness = 'b'+brightness
 
 		return brightness
 
