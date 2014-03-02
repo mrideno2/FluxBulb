@@ -11,25 +11,25 @@ def computeBrightness(initialTime, curTime, cycleTime):
 		raise Exception("Value Error")
 	else:
 		brightness = (2*math.pi)
-		print brightness
+		#print brightness
 		brightness = brightness/cycleTime
-		print brightness
+		#print brightness
 		brightness = brightness * (curTime-initialTime)
-		print brightness
+		#print brightness
 		brightness = math.sin(brightness*0.5)
-		print brightness
+		#print brightness
 		brightness = (255.0/2)*brightness
-		print brightness
+		#print brightness
 		brightness = brightness+(255.0/2)
 		#brightness = int((255/2)*math.sin((2*math.pi)/cycleTime*(curTime-initialTime))+(255/2))
 
-	print brightness
+	#print brightness
 	return brightness
 
 
 
-initialTime = input("Enter the initial time: ")
-curTime = input("Enter the current time: ")
-cycleTime = input("Enter the cycle range: ")
+#initialTime = input("Enter the initial time: ")
+#curTime = input("Enter the current time: ")
+#cycleTime = input("Enter the cycle range: ")
 
-computeBrightness(initialTime,curTime,cycleTime)
+#computeBrightness(initialTime,curTime,cycleTime)
