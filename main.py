@@ -8,7 +8,7 @@ import math
 import serial
 
 ser = serial.Serial('/dev/ttyACM0', 9600)
-
+time.sleep(2)
 
 def computeBrightness(initialTime, curTime, cycleTime):
     
@@ -55,6 +55,6 @@ while (True):
         print("COULD NOT IDENTIFY")    
     
 
-    ser.write("b"+brightness+",")
+    ser.write("b"+str(brightness)+",")
     print brightness
-    time.sleep(1)
+    time.sleep(0.3)
