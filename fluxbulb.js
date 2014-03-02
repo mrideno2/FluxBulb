@@ -5,6 +5,7 @@ if (Meteor.isClient) {
   Template.standardInterface.show = function() {return Session.get("controlType") == "standard"}
   Template.intervalInterface.show = function() {return Session.get("controlType") == "interval"}
   Template.constantInterface.show = function() {return Session.get("controlType") == "constant"}
+  Template.motionInterface.show   = function() {return Session.get("controlType") == "motion"} 
 
   Template.navlist.events({
   	'click #standard': function() {
@@ -17,7 +18,12 @@ if (Meteor.isClient) {
   	},
   	'click #constant': function() {
   		Session.set("controlType", "constant");
-  	}
+  	},
+    'click #motion': function() {
+      Session.set("controlType", "motion");
+      restGet("setType/motion")
+      $("#rdM").prop("checked", true)
+    }
   })
 
   Template.constantInterface.events({

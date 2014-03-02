@@ -1,5 +1,4 @@
 <template name="body">
-	<input type="button" id="yeah" value=test></input>
 	<div class="row">
 		<div class="span3">
 			{{> navlist}}
@@ -10,6 +9,7 @@
 			{{> standardInterface}}
 			{{> constantInterface}}
 			{{> intervalInterface}}
+			{{> motionInterface}}
 		</div>
 	</div>
 
@@ -28,7 +28,7 @@
 		<li><a href="#" id="interval"><input type="radio" name="type" id="rdI">Time interval</input></a></li>
 		<li><a href="#" id="constant"><input type="radio" name="type" id="rdC"><span>Constant</span></input></a></li>
 	    <li class="nav-header">other</li>
-		<li><a href="#" id="logout">Log out</a>
+		<li><a href="#" id="motion"><input type="radio" name="type" id="rdM"><span>Motion detection</span></input></a></li>
 	</ul>
 	<!-- </span> -->
 </template>
@@ -55,5 +55,11 @@
 		<input type="number" min="0" max="255" maxlength="3" style="width:50px" id="interval_control0"></input> seconds
 		<br>
 		<input type="button" class="btn btn-success" value="Go" id="intervalGoBtn"></input>
+	{{/if}}
+</template>
+<template name="motionInterface">
+	{{#if show}}
+		<h3>Motion detection</h3>
+		The light will turn to full brightness when it sees something close by.
 	{{/if}}
 </template>
